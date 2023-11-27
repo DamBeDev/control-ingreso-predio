@@ -1,0 +1,175 @@
+<!-- Modals -->
+
+<!-- Staff Modal -->
+<div class="modal fade" id="staffModal" tabindex="-1" aria-labelledby="staffModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="staffModalLabel">Personal</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form onsubmit="mostrarDatosPersonal()" method="dialog" id="formStaff">
+				<div class="modal-body">
+					<label for="DNI" class="texto-negrita fondo-gris">DNI</label>
+					<input type="text" class="form-control" id="inDniPersonal" placeholder="D.N.I">
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">X Cerrar</button>
+					<button type="submit" class="btn btn-primary">✔ Buscar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Ecarrier Modal -->
+<div class="modal fade" id="ecarrierModal" tabindex="-1" aria-labelledby="ecarrierModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="ecarrierModalLabel">E-Carrier</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form>
+				<div class="modal-body">
+					<label for="inDniEcarrier" class="texto-negrita fondo-gris">DNI</label>
+					<input type="text" class="form-control" id="inDniEcarrier" placeholder="D.N.I">
+				</div>
+			</form>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">X Cerrar</button>
+				<button type="button" class="btn btn-primary" onclick="mostrarDatosEcarrier()">✔ Buscar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Truckers Modal -->
+<div class="modal fade" id="truckersModal" tabindex="-1" aria-labelledby="truckersModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="truckersModalLabel">Camioneros</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form>
+				<div class="modal-body">
+					<label for="inDniCamioneros" class="texto-negrita fondo-gris">DNI</label>
+					<input type="text" class="form-control" id="inDniCamioneros" placeholder="D.N.I">
+				</div>
+			</form>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">X Cerrar</button>
+				<button type="button" class="btn btn-primary" onclick="cargarDatosCamioneros()">✔ Buscar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal programados -->
+<div class="modal fade" id="scheduledModal" tabindex="-1" aria-labelledby="scheduledModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="scheduledModalLabel">Programados</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form>
+				<div class="modal-body">
+					<label for="inDniProgramados" class="texto-negrita fondo-gris">DNI</label>
+					<input type="text" class="form-control" id="inDniProgramados" placeholder="D.N.I">
+				</div>
+			</form>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">X Cerrar</button>
+				<button type="button" class="btn btn-primary" onclick="mostrarDatosVisitas()">✔ Buscar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Not Registered Modal -->
+<div class="modal fade" id="notRegisteredModal" tabindex="-1" aria-labelledby="notRegisteredModalLabel"	aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="notRegisteredModalLabel">No Registrados</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+			<form>
+				<div class="modal-body nrm">
+					<div class="row">
+						<!-- Column 1: DNI -->
+						<div class="col-6">
+							<label for="DNI" class="texto-negrita fondo-gris modal-label">GEN+DNI</label>
+							<input type="text" class="form-control" id="dniNoRegistrados" placeholder="Ex:M40000000">
+						</div>
+						<!-- Column 2: RELACION -->
+						<div class="col-6">
+							<label for="association" class="texto-negrita fondo-gris modal-label">Relación</label>
+							<select class="form-select" id="associationNoRegistrados" aria-label="Default select example">
+								<option selected value="default">Selecciona el tipo de relación</option>
+								<option value="Personal">Personal</option>
+								<option value="E-Carrier">E-Carrier</option>
+								<option value="Camioneros">Camioneros</option>
+								<option value="Visitas">Visitas</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<!-- Column 3: SCAN DNI -->
+						<div class="col-6">
+							<label for="SCAN_DNI" class="texto-negrita fondo-gris modal-label">Scan DNI</label>
+							<input type="text" class="form-control" id="scanDniNoRegistrados" placeholder="Scan DNI">
+						</div>
+						<!-- Column 4: NOMBRE -->
+						<div class="col-6">
+							<label for="NOMBRE" class="texto-negrita fondo-gris modal-label">Nombre</label>
+							<input type="text" class="form-control" id="nombreNoRegistrados" placeholder="Nombre">
+						</div>
+					</div>
+					<div class="row">
+						<!-- Column 5: APELLIDO -->
+						<div class="col-6">
+							<label for="APELLIDO" class="texto-negrita fondo-gris modal-label">Apellido</label>
+							<input type="text" class="form-control" id="apellidoNoRegistrados" placeholder="Apellido">
+						</div>
+						<!-- Column 6: TIPO VEHICULO -->
+						<div class="col-6">
+							<label for="TIPO_VEHICULO" class="texto-negrita fondo-gris modal-label">Tipo de Vehiculo</label>
+							<select class="form-select" id="tipoNoRegistrados" aria-label="Default select example">
+								<option selected value="default">Selecciona el tipo de vehículo</option>
+								<option value="Auto">Auto</option>
+								<option value="Moto">Moto</option>
+								<option value="Camioneta">Camioneta</option>
+								<option value="Camion">Camion</option>
+								<option value="Bicicleta">Bicicleta</option>
+								<option value="Ninguno">Ninguno</option>
+							</select>
+						</div>
+						<div class="row">
+							<!-- Column 7: PATENTE -->
+							<div class="col-6">
+								<label for="PATENTE" class="texto-negrita fondo-gris modal-label">Patente</label>
+							 <input type="text" class="form-control" id="patenteNoRegistrados" placeholder="Patente">
+							</div>
+							<!-- Column 8: DESCRIPCION VEHICULO -->
+							<div class="col-6">
+								<label for="DESCRIPCION_VEHICULO" class="texto-negrita fondo-gris modal-label">Descripcion Vehiculo</label>
+								<input type="text" class="form-control" id="descripcionNoRegistrados" placeholder="Descripcion Vehiculo">
+							</div>
+					 </div>
+					</div>
+				</div>
+			</form>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">X Cerrar</button>
+				<button type="button" class="btn btn-primary" onclick="cargarNoRegistrado()">✔ Guardar Cambios</button>
+			</div>
+		</div>
+	</div>
+</div>

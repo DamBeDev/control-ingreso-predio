@@ -1,3 +1,349 @@
 <script>
+  // Init console message and disable buttons
+  window.addEventListener("load", function(){
+    console.log('El código JS fue cargado');
+    let inButton = document.querySelector("#inButton");
+    let outButton = document.querySelector("#outButton");
+    inButton.disabled = true;
+    inButton.style.opacity = 0.7;
+    outButton.disabled = true;
+    outButton.style.opacity = 0.7;
+  })
+
+  // Global variables for use in search and register
+  var relationPage = "";
+  var currentDni = "";
+
+  /* Search Staff Functions */
+
+  function mostrarDatosPersonal() {
+    let page = "Personal";
+    let inDni = document.querySelector("#inDniPersonal").value;
+    let rowDni = document.querySelector("#dniChart");
+    let scanDni = document.querySelector("#scanChart");
+    let firstChar = inDni.slice(0, 1);
+    relationPage = page;
+    currentDni = inDni;
+
+    console.log(firstChar);
+    if(firstChar == 'M' || firstChar == 'F') {
+      rowDni.textContent = inDni;
+    } else {
+      scanDni.textContent = inDni;
+    }
+
+    bootstrap.Modal.getInstance(document.querySelector('#personalModal')).hide();
+    createLoader('loaderControl');
+
+    google.script.run
+    .withSuccessHandler(cargarDatosPersonal)
+    .withFailureHandler(cargarDatosError)
+    .buscarDatos(inDni, page);
+  }
+
+  function cargarDatosPersonal(datos) {
+    document.querySelector('#inDniPersonal').value = '';
+    cargarDatosPantalla(datos);
+    correctLoad();
+  }
+
+  // Funciones buscar E-Carrier
+
+  function mostrarDatosEcarrier() {
+    let page = "E-Carrier";
+    let inDni = document.querySelector("#inDniEcarrier").value;
+    let rowDni = document.querySelector("#dniChart");
+    let scanDni = document.querySelector("#scanChart");
+    let firstChar = inDni.slice(0, 1);
+    relationPage = page;
+    currentDni = inDni;
+
+    console.log(firstChar);
+    if(firstChar == 'M' || firstChar == 'F') {
+      rowDni.textContent = inDni;
+    } else {
+      scanDni.textContent = inDni;
+    }
+
+    bootstrap.Modal.getInstance(document.querySelector('#ecarrierModal')).hide();
+    createLoader('loaderControl');
+
+    google.script.run
+    .withSuccessHandler(cargarDatosEcarrier)
+    .withFailureHandler(cargarDatosError)
+    .buscarDatos(inDni, page);
+  }
+
+  function cargarDatosEcarrier(datos) {
+    document.querySelector('#inDniEcarrier').value = '';
+    cargarDatosPantalla(datos);
+    correctLoad();
+  }
+
+// Funciones buscar Camioneros
+
+  function mostrarDatosCamioneros() {
+    let page = "Camioneros";
+    let inDni = document.querySelector("#inDniCamioneros").value;
+    let rowDni = document.querySelector("#dniChart");
+    let scanDni = document.querySelector("#scanChart");
+    let firstChar = inDni.slice(0, 1);
+    relationPage = page;
+    currentDni = inDni;
+
+    console.log(firstChar);
+    if(firstChar == 'M' || firstChar == 'F') {
+      rowDni.textContent = inDni;
+    } else {
+      scanDni.textContent = inDni;
+    }
+
+    bootstrap.Modal.getInstance(document.querySelector('#camionerosModal')).hide();
+    createLoader('loaderControl');
+
+    google.script.run
+    .withSuccessHandler(cargarDatosCamioneros)
+    .withFailureHandler(cargarDatosError)
+    .buscarDatos(inDni, page);
+  }
+
+  function cargarDatosCamioneros(datos) {
+    document.querySelector('#inDniCamioneros').value = '';
+    cargarDatosPantalla(datos);
+    correctLoad();
+  }
+
+  // Funciones buscar Visitas
+
+  function mostrarDatosVisitas() {
+    let page = "Visitas";
+    let inDni = document.querySelector("#inDniProgramados").value;
+    let rowDni = document.querySelector("#dniChart");
+    let scanDni = document.querySelector("#scanChart");
+    let firstChar = inDni.slice(0, 1);
+    relationPage = page;
+    currentDni = inDni;
+
+    console.log(firstChar);
+    if(firstChar == 'M' || firstChar == 'F') {
+      rowDni.textContent = inDni;
+    } else {
+      scanDni.textContent = inDni;
+    }
+
+    bootstrap.Modal.getInstance(document.querySelector('#programadosModal')).hide();
+    createLoader('loaderControl');
+
+    google.script.run
+    .withSuccessHandler(cargarDatosProgramados)
+    .withFailureHandler(cargarDatosError)
+    .buscarDatos(inDni, page);
+  }
+
+  function cargarDatosProgramados(datos) {
+    document.querySelector('#inDniProgramados').value = '';
+    cargarDatosPantalla(datos);
+    correctLoad();
+  }
+
+  function cargarDatosError() {
+    deleteLoader();
+    errorLoad();
+  }
+  
+  function cargarDatosPantalla(datos) {
+    let rowName = document.querySelector("#nameChart");
+    let rowSurname = document.querySelector("#surnameChart");
+    let rowType = document.querySelector("#typeChart");
+    let rowRegistration = document.querySelector("#registrationChart");
+    let rowDescription = document.querySelector("#descriptionChart");
+    let inButton = document.querySelector("#inButton");
+    let outButton = document.querySelector("#outButton");
+
+    rowName.textContent = datos[0];
+    rowSurname.textContent = datos[1];
+    rowType.textContent = datos[2];
+    rowRegistration.textContent = datos[3];
+    rowDescription.textContent = datos[4];
+
+    deleteLoader();
+
+    inButton.disabled = false;
+    inButton.style.opacity = 1;
+    outButton.disabled = false;
+    outButton.style.opacity = 1;
+
+  }
+
+  // Función registrar nuevo
+
+  function cargarNoRegistrado() {
+    let relacion = document.querySelector("#associationNoRegistrados").value;
+    let genDni = document.querySelector("#dniNoRegistrados").value;
+    let scanDni = document.querySelector("#scanDniNoRegistrados").value;
+    let name = document.querySelector("#nameNoRegistrados").value;
+    let surname = document.querySelector("#surnameNoRegistrados").value;
+    let typeVehiculo = document.querySelector("#typeNoRegistrados").value;
+    let register = document.querySelector("#registerNoRegistrados").value;
+    let description = document.querySelector("#descriptionNoRegistrados").value;
+
+    bootstrap.Modal.getInstance(document.querySelector('#noRegistradosModal')).hide();
+    createLoader('loaderControl');
+
+    let datosCargados = [relacion, genDni, scanDni, name, surname, typeVehiculo, register, description];
+
+    google.script.run
+    .withSuccessHandler(cargarNoRegistradoCorrecto)
+    .withFailureHandler(cargarDatosError)
+    .cargarNuevo(datosCargados);
+  }
+
+  function cargarNoRegistradoCorrecto() {
+    document.querySelector("#associationNoRegistrados").value = "default";
+    document.querySelector("#dniNoRegistrados").value = "";
+    document.querySelector("#scanDniNoRegistrados").value = "";
+    document.querySelector("#nameNoRegistrados").value = "";
+    document.querySelector("#surnameNoRegistrados").value = "";
+    document.querySelector("#typeNoRegistrados").value = "default";
+    document.querySelector("#registerNoRegistrados").value = "";
+    document.querySelector("#descriptionNoRegistrados").value = "";
+    deleteLoader();
+    correctLoad();
+  }
+
+  /* Check IN/OUT Functions */
+
+	// Correct check loader function
+
+  function checkLoaderCorrect() {
+    relationPage = "";
+    currentDni = "";
+    document.querySelector("#dniChart").textContent = " - ";
+    document.querySelector("#scanChart").textContent = " - ";
+    document.querySelector("#nameChart").textContent = " - ";
+    document.querySelector("#surnameChart").textContent = " - ";
+    document.querySelector("#typeChart").textContent = " - ";
+    document.querySelector("#registrationChart").textContent = " - ";
+    document.querySelector("#descriptionChart").textContent = " - ";
+    document.querySelector("#observations").value = "";
+    deleteLoader();
+    correctLoad();
+  }
+
+  // Error check loader function
+	
+	function checkLoaderError() {
+    deleteLoader();
+    errorLoad();
+  }
+
+  // Basic check IN/OUT function
+	
+	function registerCheck(comment) {
+    let page = relationPage;
+    let dni = currentDni;
+    let name = document.querySelector("#nameChart").textContent;
+    let surname = document.querySelector("#surnameChart").textContent;
+    let type = document.querySelector("#typeChart").textContent;
+    let register = document.querySelector("#registrationChart").textContent;
+    let description = document.querySelector("#descriptionChart").textContent;
+
+    createLoader('loaderControl');
+
+    let registerData = [dni, name, surname, type, register, description, comment];
+
+    google.script.run
+    .withSuccessHandler(checkLoaderCorrect)
+    .withFailureHandler(checkLoaderError)
+    .registerInOut(page, registerData);
+  }
+
+	// Check IN function
+
+  function registerCheckIn() {
+    let obs = document.querySelector("#observations").value;
+    let comment = "Ingreso. " + obs;
     
+    let inButton = document.querySelector("#inButton");
+    let outButton = document.querySelector("#outButton");
+    inButton.disabled = true;
+    inButton.style.opacity = 0.7;
+    outButton.disabled = true;
+    outButton.style.opacity = 0.7;
+
+    registerCheck(comment);
+  }
+
+	// Check OUT function
+
+  function registerCheckOut() {
+    let obs = document.querySelector("#observations").value;
+    let comment = "Egreso. " + obs;
+    
+    let inButton = document.querySelector("#inButton");
+    let outButton = document.querySelector("#outButton");
+    inButton.disabled = true;
+    inButton.style.opacity = 0.7;
+    outButton.disabled = true;
+    outButton.style.opacity = 0.7;
+
+    registerCheck(comment);
+  }
+
+  /* Notifications Functions */
+
+	// Basic notifications function
+
+  function createNotification(message, title) {
+    document.querySelector('#textNotifications').textContent = message;
+    document.querySelector('#titleNotifications').textContent = title;
+    let elementoNotificacion = document.querySelector('#notifications');
+    bootstrap.Toast.getOrCreateInstance(elementoNotificacion).show();
+  }
+
+  // Correct load notification
+
+	function correctLoad() {
+    document.querySelector('#iconNotifications').className = '';
+    document.querySelector('#iconNotifications').classList.add('bi', 'bi-check-circle-fill');
+    document.querySelector('#notifications').style.backgroundColor = "#3BF708";
+    createNotification('Datos cargados correctamente.', 'OK');
+  }
+
+  // Error load notification
+
+	function errorLoad() {
+    document.querySelector('#iconNotifications').className = '';
+    document.querySelector('#iconNotifications').classList.add('bi', 'bi-heartbreak-fill');
+    document.querySelector('#notifications').style.backgroundColor = "#F71A08";
+    createNotification('Datos no cargados.', 'ERROR');
+  }
+  
+  /* Loader Functions */
+
+  function createLoader(patternElement) {
+    deleteLoader();
+    let loader = document.createElement('div');
+    loader.id = 'loader';
+    loader.appendChild(document.createElement('div'));
+    loader.appendChild(document.createElement('div'));
+    loader.appendChild(document.createElement('div'));
+    loader.appendChild(document.createElement('div'));
+    loader.appendChild(document.createElement('div'));
+    loader.appendChild(document.createElement('div'));
+    loader.appendChild(document.createElement('div'));
+    loader.appendChild(document.createElement('div'));
+    loader.appendChild(document.createElement('div'));
+    loader.appendChild(document.createElement('div'));
+    loader.appendChild(document.createElement('div'));
+    loader.appendChild(document.createElement('div'));
+    loader.classList.add('lds-spinner');
+    document.querySelector(patternElement).appendChild(loader);
+  }
+
+  function deleteLoader() {
+    let loader = document.querySelector('loader');
+    if (loader) loader.remove();
+  }
+
 </script>

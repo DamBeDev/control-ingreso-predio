@@ -23,8 +23,99 @@
 
   <body>
 
+		<h1>CONTROL DE INGRESOS PREDIO</h1>
+
+    <nav>
+      <ul>
+        <li>
+          <!-- Staff Button -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staffModal">
+            Personal
+          </button>
+        </li>
+        <li>
+          <!-- E-Carrier Button -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ecarrierModal">
+            E-Carrier
+          </button>
+        </li>
+        <li>
+          <!-- Truckers Button -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#truckersModal">
+            Camioneros
+          </button>
+        </li>
+        <li>
+          <!-- Scheduled Button -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scheduledModal">
+            Programados
+          </button>
+        </li>
+        <li>
+          <!-- Not Registered Button -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#notRegisteredModal">
+            No Registrados
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+		<div class="chart">
+      <div class="data-title-column">
+        <div class="data-row title">GEN+DNI</div>
+        <div class="data-row title">Scan DNI</div>
+        <div class="data-row title">Nombre</div>
+        <div class="data-row title">Apellido</div>
+        <div class="data-row title">Tipo de Vehiculo</div>
+        <div class="data-row title">Patente</div>
+        <div class="data-row title">Descripción</div>
+        <div class="card bottom-card">
+          <div class="card-body">
+            <input type="text" class="form-control m-2" id="observations" placeholder="Observaciones">
+            <button type="button" class="btn btn-secondary" id="inButton" onclick="registrarIn()">
+              <i class="bi bi-building-fill-up">ENTRADA</i>
+            </button>
+            <button type="button" class="btn btn-secondary" id="outButton" onclick="registrarOut()">
+              <i class="bi bi-building-fill-down">SALIDA</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="data-column">
+        <div class="data-row" id="dniChart"> - </div>
+        <div class="data-row" id="scanChart"> - </div>
+        <div class="data-row" id="nameChart"> - </div>
+        <div class="data-row" id="surnameChart"> - </div>
+        <div class="data-row" id="typeChart"> - </div>
+        <div class="data-row" id="registrationChart"> - </div>
+        <div class="data-row" id="descriptionChart"> - </div>
+        <div id="loaderControl" class="d-flex justify-content-center"></div>
+      </div>
+      <div class="data-column">
+        <img src="" class="profile-photo" id="profilePhoto">
+      </div>
+    </div>
+
     <!-- Modals -->
     <?!= includes('modals'); ?>
+
+		<!-- notifications -->
+
+		<div class="toast-container position-fixed bottom-0 end-0 p-3">
+			<div id="notifications" class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
+				<div class="toast-header p-0">
+					<div class="icon-notifications m-2"><i id="iconNotifications"></i></div>
+					<strong class="me-auto" id="titleNotifications"></strong>
+					<button type="button" class="btn-close m-2" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body" id="textNotifications"></div>
+			</div>
+		</div>
+
+		<footer class="footer">
+			Powered by DamBeDev (2023) | Style by ChristianCasta
+		</footer>
+	
 
     <!-- JS & Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
